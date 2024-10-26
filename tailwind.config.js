@@ -17,7 +17,8 @@ export default {
         lightModeSidebarBackground: "#000000",
         darkModeSidebarBackground: "#FFF",
         primaryGreen: "#9fe96e",
-        primaryOrange: "#ff844b"
+        primaryOrange: "#ff844b",
+        primaryBlue:"#00c4ff"
       }
     },
   },
