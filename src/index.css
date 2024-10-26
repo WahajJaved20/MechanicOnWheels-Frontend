@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "breulGroteskBBold";
+    src: local("Fontspring-DEMO-breulgroteskb-bold"),
+        url("Fonts/Breul-Grotesk/Fontspring-DEMO-breulgroteskb-bold.otf") format("truetype");
+}
+
+@font-face {
+    font-family: "qanelasRegular";
+    src: local("QanelasRegular.otf"),
+        url("Fonts/qanelas/QanelasRegular.otf") format("truetype");
+}
