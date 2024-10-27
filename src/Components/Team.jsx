@@ -3,6 +3,10 @@ import Topbar from "./Topbar";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+import GroupsIcon from '@mui/icons-material/Groups';
+import { Link } from "react-router-dom";
+import "./Team.css"
+
 const Team = () => {
     const [employees, setEmployees] = useState([])
     useEffect(() => {
@@ -19,6 +23,14 @@ const Team = () => {
     }, [])
     return <>
         <Topbar title={"Manage Team"} userName={"Wahaj Javed"} />
+        <div className="my-8 justify-end">
+            <Link to="/addTeamMember">
+                <button className="flex flex-row border px-8 rounded-lg items-center py-2  border-2 border-black dark:border-white font-breulGroteskBold buttonShadow hover:bg-primaryGreen  text-black dark:text-white dark:hover:text-black">
+                    <GroupsIcon className="mr-2" />
+                    <h1 className="">Add a Member</h1>
+                </button>
+            </Link>
+        </div>
         {/** TABLE */}
         <div className="mr-8">
             <table className="mt-8 rounded-lg table-auto w-full text-lg text-center dark:text-white bg-[#aca7cb]">
@@ -46,7 +58,7 @@ const Team = () => {
                 </thead>
                 <tbody>
                     {employees.map((employee, index) => (
-                        <tr key={employee.id} className={`font-qanelasRegular ${(index+1) % 2 == 0 ? "bg-black dark:bg-white text-white dark:text-black rounded-lg": "bg-white dark:bg-black"}`}>
+                        <tr key={employee.id} className={`font-qanelasRegular ${(index + 1) % 2 == 0 ? "bg-black dark:bg-white text-white dark:text-black rounded-lg" : "bg-white dark:bg-black"}`}>
                             <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
                                 {index + 1}
                             </th>

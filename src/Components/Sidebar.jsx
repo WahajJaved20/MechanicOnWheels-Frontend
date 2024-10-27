@@ -19,7 +19,7 @@ const Sidebar = () => {
   const Menus = [
     { title: "Dashboard", src: <DashboardIcon />, to:"/" },
     { title: "Team", src: <GroupsIcon />, to:"/team" },
-    { title: "Add Employee", src: <GroupAddIcon />, gap: true, to:"/addEmployee" },
+    { title: "Add Employee", src: <GroupAddIcon />, gap: true, to:"/addTeamMember" },
   ];
 
 

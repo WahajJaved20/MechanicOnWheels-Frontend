@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import "./Topbar.css"
 const Topbar = ({ title, userName }) => {
     return (
-        <div className="flex justify-between items-center mr-8 text-black dark:text-white border-b-2 border-black dark:border-white p-4" id="nav">
+        <div className="flex justify-between items-center mr-4 text-black dark:text-white border-b-2 border-black dark:border-white p-4" id="nav">
             <h1 className=" mt-4 font-breulGroteskBold text-[60px]">
                 {title}
             </h1>

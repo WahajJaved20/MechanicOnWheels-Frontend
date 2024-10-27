@@ -5,6 +5,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from './Contexts/theme'
 import { useEffect, useState } from 'react'
 import Team from './Components/Team'
+import TeamMemberFormPage from './Components/TeamMemberForm'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [themeMode, setThemeMode] = useState('light');
   const darkTheme = () => {
@@ -27,11 +30,22 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
+              <Route path="/addTeamMember" element={<TeamMemberFormPage />} />
             </Routes>
             </div>
           </div>
         </Router>
       </ThemeProvider>
+      <ToastContainer
+      position="bottom-left"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={true}
+      closeOnClick={true}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover />
     </>
   )
 }
