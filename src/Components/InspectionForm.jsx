@@ -47,7 +47,7 @@ const InspectionForm = () => {
             preInspectionReport: preInspectionReport,
             postInspectionReport: postInspectionReport
         }
-        const result = await fetch(`http://mechanic-on-wheels-backend.vercel.app/inspection/addNewInspection`, {
+        const result = await fetch(`https://mechanic-on-wheels-backend.vercel.app/inspection/addNewInspection`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

@@ -67,7 +67,7 @@ const InspectionForm = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const result = await fetch(`http://mechanic-on-wheels-backend.vercel.app/inspection/getRecentInspection`, {
+            const result = await fetch(`https://mechanic-on-wheels-backend.vercel.app/inspection/getRecentInspection`, {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
