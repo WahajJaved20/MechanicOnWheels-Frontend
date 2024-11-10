@@ -12,7 +12,7 @@ const Team = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/team/getTeamData', { method: 'GET' });
+                const response = await fetch('http://mechanic-on-wheels-backend.vercel.app/team/getTeamData', { method: 'GET' });
                 const data = await response.json();
                 setEmployees(data);
             } catch (error) {

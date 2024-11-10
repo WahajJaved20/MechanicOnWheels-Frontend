@@ -8,11 +8,14 @@ import InputBox from "../constants/InputBox";
 import { InspectionFormBox, FieldsMap } from "../constants/InspectionFormBox";
 import { batteryFields, brakeFields, interiorExteriorFields, optionValues, underHoodFields, underVehicleFields } from "../constants/inspectionFields";
 import RichTextEditor from "./RichTextEditor";
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const InspectionForm = () => {
     const [preInspectionReport, setPreInspectionReport] = useState();
     const [postInspectionReport, setPostInspectionReport] = useState();
     const [values, setValues] = useState(optionValues);
+    const navigate = useNavigate();
 
     const handleChanges = (section, key, event) => {
         setValues({
@@ -44,7 +47,21 @@ const InspectionForm = () => {
             preInspectionReport: preInspectionReport,
             postInspectionReport: postInspectionReport
         }
-        console.log(form)
+        const result = await fetch(`http://mechanic-on-wheels-backend.vercel.app/inspection/addNewInspection`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': localStorage.getItem("jwtToken")
+            },
+            body: JSON.stringify(form)
+        }).then((resp) => resp.json());
+        if (result.type === "Success") {
+            toast.success('Inspection Successfully Added');
+            // setLoading(false);
+            navigate('/');
+        } else {
+            toast.error(result.message);
+        }
     }
     const { themeMode } = useTheme();
     return <>
@@ -255,7 +272,7 @@ const InspectionForm = () => {
                     </Grid>
                     <Box display="flex" justifyContent="end" mt="20px">
                         <Button type="submit" variant="contained" sx={{
-                            bgcolor: "#9fe96e" ,
+                            bgcolor: "#9fe96e",
                             color: "black",
                             fontFamily: "qanelasRegular"
                         }}>

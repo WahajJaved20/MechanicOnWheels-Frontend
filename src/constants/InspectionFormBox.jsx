@@ -44,6 +44,7 @@ const ColorRadioGroup = ({handleChange, section, index}) => {
             {options.map((option) => (
                 <label key={option.id} className="cursor-pointer">
                     <input
+                    
                         type="radio"
                         name="status"
                         checked={selectedColor === option.id}

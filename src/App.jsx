@@ -9,6 +9,7 @@ import TeamMemberFormPage from './Components/TeamMemberForm'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import InspectionForm from './Components/InspectionForm'
+import ViewInspection from './Components/ViewInspection'
 function App() {
   const [themeMode, setThemeMode] = useState('light');
   const darkTheme = () => {
@@ -33,6 +34,7 @@ function App() {
               <Route path="/team" element={<Team />} />
               <Route path="/addTeamMember" element={<TeamMemberFormPage />} />
               <Route path="/inspectionForm" element={<InspectionForm />} />
+              <Route path="/viewInspection" element={<ViewInspection />} />
             </Routes>
             </div>
           </div>

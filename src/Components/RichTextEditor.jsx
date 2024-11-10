@@ -1,7 +1,7 @@
 import React from "react";
 import { Editor, EditorProvider, Toolbar, BtnBold, BtnItalic, BtnUnderline, BtnClearFormatting, BtnRedo, BtnStrikeThrough, BtnUndo, Separator } from "react-simple-wysiwyg";
 
-const RichTextEditor = ({ content, setContent, themeMode }) => {
+const RichTextEditor = ({ content, setContent, themeMode, disabled }) => {
 
     function onChange(e) {
         setContent(e.target.value);
@@ -9,7 +9,7 @@ const RichTextEditor = ({ content, setContent, themeMode }) => {
 
     return (
         <EditorProvider>
-            <Editor value={content} onChange={onChange} containerProps={{ style: { borderColor: themeMode === "light" ? "black" : "white", borderWidth: 2, fontFamily: "qanelasRegular", color: themeMode === "dark" ? "white" : "black" } }}>
+            <Editor disabled={disabled} value={content} onChange={onChange} containerProps={{ style: { borderColor: themeMode === "light" ? "black" : "white", borderWidth: 2, fontFamily: "qanelasRegular", color: themeMode === "dark" ? "white" : "black" } }}>
                 <Toolbar>
                     <BtnUndo />
                     <BtnRedo />

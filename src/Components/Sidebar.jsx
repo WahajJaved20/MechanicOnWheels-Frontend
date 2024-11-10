@@ -7,6 +7,7 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import CarCrashIcon from '@mui/icons-material/CarCrash';
+import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import { logo } from "../assets";
 import useTheme from "../Contexts/theme";
 import { Link } from "react-router-dom";
@@ -21,7 +22,8 @@ const Sidebar = () => {
     { title: "Dashboard", src: <DashboardIcon />, to:"/" },
     { title: "Team", src: <GroupsIcon />, to:"/team" },
     { title: "Add Employee", src: <GroupAddIcon />, gap: true, to:"/addTeamMember" },
-    { title: "Car Inspection", src: <CarCrashIcon />, gap: false, to:"/inspectionForm"}
+    { title: "Car Inspection", src: <CarCrashIcon />, gap: false, to:"/inspectionForm"},
+    { title: "View Recent Inspection", src: <SavedSearchIcon />, gap: false, to:"/viewInspection"},
   ];
 
 

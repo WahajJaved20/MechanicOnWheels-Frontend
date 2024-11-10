@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField } from "@mui/material";
 
-const InputBox = ({ label, handleBlur, handleChange, value, name, error, helperText, themeMode }) => {
+const InputBox = ({ label, handleBlur, handleChange, value, name, error, helperText, themeMode, disabled }) => {
     return (
         <TextField
             fullWidth
@@ -14,6 +14,7 @@ const InputBox = ({ label, handleBlur, handleChange, value, name, error, helperT
             name={name}
             error={error}
             helperText={helperText}
+            disabled={disabled}
             sx={{
                 gridColumn: "span 4",
                 '& .MuiOutlinedInput-root': {
@@ -29,6 +30,10 @@ const InputBox = ({ label, handleBlur, handleChange, value, name, error, helperT
                     fontFamily: "qanelasRegular",
                     fontSize: "20px"
                 },
+               
+  "& .MuiInputBase-input.Mui-disabled": { WebkitTextFillColor: `${themeMode === "dark" ? "white" : "black"}`, },
+
+
             }}
         />);
 }
