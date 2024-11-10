@@ -6,6 +6,7 @@ import { Formik, Form } from "formik";
 import useTheme from "../Contexts/theme";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import InputBox from "../constants/InputBox";
 
 const TeamMemberFormPage = () => {
     const { themeMode } = useTheme();
@@ -59,146 +60,55 @@ const TeamMemberFormPage = () => {
                                 gap="30px"
                                 gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                             >
-                                <TextField
-                                    fullWidth
-                                    variant="outlined"
-                                    type="text"
-                                    label="Full Name"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                <InputBox
+                                    label={"Full Name"}
+                                    handleBlur={handleBlur}
+                                    handleChange={handleChange}
                                     value={values.fullName}
-                                    name="fullName"
+                                    name={"fullName"}
                                     error={!!touched.fullName && !!errors.fullName}
                                     helperText={touched.fullName && errors.fullName}
-                                    sx={{
-                                        gridColumn: "span 4",
-                                        '& .MuiOutlinedInput-root': {
-                                            borderBottom: `4px solid ${themeMode === "dark" ? "white" : "black"}`,
-                                            color: `${themeMode === "dark" ? "white" : "black"}`,
-                                            fontFamily: "qanelasRegular"
-                                        },
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            border: 'none',
-                                        },
-                                        '& .MuiInputLabel-root': {
-                                            color: `${themeMode === "dark" ? "white" : "black"}`,
-                                            fontFamily: "qanelasRegular",
-                                            fontSize: "20px"
-                                        },
-                                    }}
+                                    themeMode={themeMode}
                                 />
-                                <TextField
-                                    fullWidth
-                                    variant="outlined"
-                                    type="text"
-                                    label="Email"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                <InputBox
+                                    label={"Email"}
+                                    handleBlur={handleBlur}
+                                    handleChange={handleChange}
                                     value={values.email}
                                     name="email"
                                     error={!!touched.email && !!errors.email}
                                     helperText={touched.email && errors.email}
-                                    sx={{
-                                        gridColumn: "span 4",
-                                        '& .MuiOutlinedInput-root': {
-                                            borderBottom: `4px solid ${themeMode === "dark" ? "white" : "black"}`,
-                                            color: `${themeMode === "dark" ? "white" : "black"}`,
-                                            fontFamily: "qanelasRegular"
-                                        },
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            border: 'none',
-                                        },
-                                        '& .MuiInputLabel-root': {
-                                            color: `${themeMode === "dark" ? "white" : "black"}`,
-                                            fontFamily: "qanelasRegular",
-                                            fontSize: "20px"
-                                        },
-                                    }}
+                                    themeMode={themeMode}
+
                                 />
-                                <TextField
-                                    fullWidth
-                                    variant="outlined"
-                                    type="text"
+                                <InputBox
                                     label="Password"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    handleChange={handleChange}
                                     value={values.password}
                                     name="password"
                                     error={!!touched.password && !!errors.password}
+                                    themeMode={themeMode}
                                     helperText={touched.password && errors.password}
-                                    sx={{
-                                        gridColumn: "span 4",
-                                        '& .MuiOutlinedInput-root': {
-                                            borderBottom: `4px solid ${themeMode === "dark" ? "white" : "black"}`,
-                                            color: `${themeMode === "dark" ? "white" : "black"}`,
-                                            fontFamily: "qanelasRegular"
-                                        },
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            border: 'none',
-                                        },
-                                        '& .MuiInputLabel-root': {
-                                            color: `${themeMode === "dark" ? "white" : "black"}`,
-                                            fontFamily: "qanelasRegular",
-                                            fontSize: "20px"
-                                        },
-                                    }}
                                 />
-                                <TextField
-                                    fullWidth
-                                    variant="outlined"
-                                    type="text"
+                                <InputBox
                                     label="Contact Number"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                    handleBlur={handleBlur} 
+                                    handleChange={handleChange}
                                     value={values.contact}
                                     name="contact"
                                     error={!!touched.contact && !!errors.contact}
+                                    themeMode={themeMode}
                                     helperText={touched.contact && errors.contact}
-                                    sx={{
-                                        gridColumn: "span 4",
-                                        '& .MuiOutlinedInput-root': {
-                                            borderBottom: `4px solid ${themeMode === "dark" ? "white" : "black"}`,
-                                            color: `${themeMode === "dark" ? "white" : "black"}`,
-                                            fontFamily: "qanelasRegular"
-                                            
-                                        },
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            border: 'none',
-                                        },
-                                        '& .MuiInputLabel-root': {
-                                            color: `${themeMode === "dark" ? "white" : "black"}`,
-                                            fontFamily: "qanelasRegular",
-                                            fontSize: "20px"
-                                        },
-                                    }}
                                 />
-                                <TextField
-                                    fullWidth
-                                    variant="outlined"
-                                    type="text"
-                                    label="Age"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                <InputBox label="Age"
+                                    handleBlur={handleBlur} 
+                                    handleChange={handleChange}
                                     value={values.age}
                                     name="age"
                                     error={!!touched.age && !!errors.age}
+                                    themeMode={themeMode}
                                     helperText={touched.age && errors.age}
-                                    sx={{
-                                        gridColumn: "span 4",
-                                        '& .MuiOutlinedInput-root': {
-                                            borderBottom: `4px solid ${themeMode === "dark" ? "white" : "black"}`,
-                                            color: `${themeMode === "dark" ? "white" : "black"}`,
-                                            fontFamily: "qanelasRegular"
-                                        },
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            border: 'none',
-                                        },
-                                        '& .MuiInputLabel-root': {
-                                            color: `${themeMode === "dark" ? "white" : "black"}`,
-                                            fontFamily: "qanelasRegular",
-                                            fontSize: "20px"
-                                        },
-                                    }}
                                 />
                                 <InputLabel className="font-qanelasRegular"
                                     id="access" sx={{
@@ -291,7 +201,7 @@ const TeamMemberFormPage = () => {
                                     color: "black",
                                     fontFamily: "qanelasRegular"
                                 }}
-                                disabled={errors.accessLevel || errors.age || errors.contact || errors.email || errors.fullName || errors.password}>
+                                    disabled={errors.accessLevel || errors.age || errors.contact || errors.email || errors.fullName || errors.password}>
                                     Create New User
                                 </Button>
                             </Box>

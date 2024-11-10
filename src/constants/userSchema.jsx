@@ -21,7 +21,7 @@ const initialValues = {
 	contact: "",
 	age: "",
 	password: "",
-	accessLevel: "User"
+	accessLevel: "user"
 };
 
 export {phoneRegExp, checkoutSchema, initialValues}
