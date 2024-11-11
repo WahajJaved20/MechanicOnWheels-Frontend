@@ -43,11 +43,11 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="flex font-qanelasRegular mr-8">
+    <div className="flex font-qanelasRegular mr-8 ">
       <div
         className={` ${
           open ? "w-72" : "w-20 "
-        }  dark:bg-darkModeSidebarBackground bg-lightModeSidebarBackground  h-screen p-5 pt-8 relative duration-300`}
+        }  dark:bg-darkModeSidebarBackground bg-lightModeSidebarBackground  h-screen [height:100%] p-5 pt-8 relative duration-300`}
       >
         <ChevronLeftIcon
           className={`absolute cursor-pointer -right-4 top-9 w-7 bg-primaryOrange
