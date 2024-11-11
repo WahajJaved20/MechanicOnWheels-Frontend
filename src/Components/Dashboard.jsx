@@ -2,7 +2,7 @@ import React from "react";
 import Topbar from "./Topbar";
 const Dashboard = () => {
     return (<div>
-        <Topbar title={"Dashboard"} userName={"Wahaj Javed"} />
+        <Topbar title={"Dashboard"} userName={"John Doe"} />
         lol
     </div>)
 }
