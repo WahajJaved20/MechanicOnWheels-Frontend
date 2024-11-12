@@ -9,16 +9,16 @@ export default {
     extend: {
       fontFamily: {
         breulGroteskBold: ['breulGroteskBBold', 'Times New Roman'],
-        qanelasRegular: ['qanelasRegular', 'Times New Roman'] 
+        qanelasRegular: ['qanelasRegular', 'Times New Roman']
       },
-      colors:{
-        lightModeBackground: "#FFF",
-        darkModeBackground: "#000000",
-        lightModeSidebarBackground: "#000000",
-        darkModeSidebarBackground: "#FFF",
+      colors: {
+        lightModeBackground: "#102a43",
+        darkModeBackground: "#829ab1",
+        lightModeSidebarBackground: "#102a43",
+        darkModeSidebarBackground: "#102a43",
         primaryGreen: "#9fe96e",
         primaryOrange: "#ff844b",
-        primaryBlue:"#00c4ff"
+        primaryBlue: "#00c4ff"
       }
     },
   },
