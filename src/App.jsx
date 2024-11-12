@@ -12,6 +12,7 @@ import InspectionForm from "./Components/InspectionForm";
 import ViewInspection from "./Components/ViewInspection";
 import NotFound from "./404";
 import Error404 from "./404";
+import InspectionTable from "./Components/InspectiponTable";
 import LoginPage from "./Components/LoginPage";
 function App() {
   const [themeMode, setThemeMode] = useState("light");
@@ -39,6 +40,8 @@ function App() {
                 {/* <Route path="/addTeamMember" element={<TeamMemberFormPage />} /> */}
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/inspectionForm" element={<InspectionForm />} />
+                <Route path="/inspection" element={<InspectionTable />} />
+
                 <Route path="/viewInspection" element={<ViewInspection />} />
                 <Route path="*" element={<Error404 />} />
               </Routes>

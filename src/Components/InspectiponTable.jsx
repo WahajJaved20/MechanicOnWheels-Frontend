@@ -1,20 +1,40 @@
-import React, { useState, useEffect } from "react";
 import Topbar from "./Topbar";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import "./Team.css";
-import BasicTable from "./Table";
+import PreviewIcon from "@mui/icons-material/Preview";
 import { Button } from "flowbite-react";
 import { Box, ButtonBase, Typography } from "@mui/material";
 import TeamMemberModal from "./TeamMemeberModal";
-import CircularIndeterminate from "./Loader";
-
-const Team = () => {
-  const [employees, setEmployees] = useState([]);
+import { useEffect, useState } from "react";
+const status = {
+  green: "Checked",
+  yellow: "Future Attention",
+  red: "Imediate Attention",
+};
+const tempData = [
+  {
+    name: "XYz",
+    email: "xyz.com",
+    phoneNumber: "03333",
+    status: "green",
+  },
+  {
+    name: "XYsz",
+    email: "xysz.com",
+    phoneNumber: "03333",
+    status: "yellow",
+  },
+  {
+    name: "absc",
+    email: "xyabcssz.com",
+    phoneNumber: "03333",
+    status: "red",
+  },
+];
+const InspectionTable = () => {
+  const [vehicles, setVehicles] = useState(tempData);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(""); // Holds the value of the search input
   const [originalEmp, setOriginalEmp] = useState([]); // Holds the filtered list of users
@@ -30,7 +50,7 @@ const Team = () => {
         user.email.toLowerCase().includes(query.toLowerCase())
     );
     console.log(filteredUsers, query, originalEmp, "filteredUsers");
-    setEmployees(query.length === 0 ? originalEmp : filteredUsers); // Update the results
+    setVehicles(query.length === 0 ? originalEmp : filteredUsers); // Update the results
   };
 
   useEffect(() => {
@@ -41,8 +61,8 @@ const Team = () => {
           { method: "GET" }
         );
         const data = await response.json();
-        setEmployees(data);
-        setOriginalEmp(data);
+        // setVehicles(data);
+        //  setOriginalEmp(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -51,25 +71,26 @@ const Team = () => {
   }, []);
   return (
     <>
-      <Topbar title={"Manage Team"} userName={"Wahaj Javed"} />
+      <Topbar title={"Manage Vehicle"} userName={"Wahaj Javed"} />
       <div className="m-6 flex justify-between">
-        {/* <Link to="/addTeamMember"> */}
-        <div>
-          <Button
-            onClick={() => {
-              setOpen(true);
-            }}
-            className="flex flex-row border px-8 rounded-lg items-center py-2  border-2 border-black dark:border-white font-breulGroteskBold buttonShadow hover:bg-primaryGreen  text-black dark:text-white dark:hover:text-black"
-          >
-            <GroupsIcon className="mr-2" />
-            <h1 className="">Add a Member</h1>
-          </Button>
-        </div>
+        <Link to="/inspectionForm">
+          <div>
+            <Button
+              onClick={() => {
+                setOpen(true);
+              }}
+              className="flex flex-row border px-8 rounded-lg items-center py-2  border-2 border-black dark:border-white font-breulGroteskBold buttonShadow hover:bg-primaryGreen  text-black dark:text-white dark:hover:text-black"
+            >
+              <GroupsIcon className="mr-2" />
+              <h1 className="">Add Inspection</h1>
+            </Button>
+          </div>
+        </Link>
         <div className="  searchShadow justify-start  font-qanelasRegular  px-8 py-2 flex flex-row">
           <SearchIcon className="mr-2 my-2" />
           <input
             className="border-none outline-none bg-white dark:bg-black"
-            placeholder="Search by name or email"
+            placeholder="Search by name "
             value={searchTerm}
             onChange={handleSearchChange}
           />
@@ -92,30 +113,31 @@ const Team = () => {
             >
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  Emp. No
+                  ID
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Name
                 </th>
+
                 <th scope="col" className="px-6 py-3">
                   Email
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Age
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Phone Number
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Access Level
+                  Status
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  View
                 </th>
               </tr>
             </thead>
-            {employees.length > 0 ? (
+            {vehicles.length > 0 ? (
               <tbody>
-                {employees.map((employee, index) => (
+                {vehicles.map((vehicle, index) => (
                   <tr
-                    key={employee.id}
+                    key={vehicle.id}
                     className={`font-qanelasRegular ${
                       (index + 1) % 2 == 0
                         ? "bg-[#2f3349] dark:bg-white text-white dark:text-black rounded-lg"
@@ -132,35 +154,15 @@ const Team = () => {
                       scope="row"
                       className="px-6 py-4 font-medium whitespace-nowrap"
                     >
-                      {employee.name}
+                      {vehicle.name}
                     </th>
-                    <td className=" py-2">{employee.email}</td>
-                    <td className=" py-2">{employee.age}</td>
-                    <td className=" py-2">{employee.phoneNumber}</td>
-                    <td className="px-6 py-2">
-                      <div
-                        className={` items-center text-center py-2 
-                                    ${
-                                      employee.accessLevel === "admin"
-                                        ? " text-primaryGreen"
-                                        : employee.accessLevel === "manager"
-                                        ? " text-primaryOrange"
-                                        : " text-primaryBlue"
-                                    }`}
-                      >
-                        {employee.accessLevel === "admin" && (
-                          <AdminPanelSettingsOutlinedIcon />
-                        )}
-                        {employee.accessLevel === "manager" && (
-                          <SecurityOutlinedIcon />
-                        )}
-                        {employee.accessLevel === "user" && (
-                          <LockOpenOutlinedIcon />
-                        )}
-                        {/* <button disabled={true} className=""> */}
-                        {employee.accessLevel}
-                        {/* </button> */}
-                      </div>
+                    <td className=" py-2">{vehicle.email}</td>
+                    <td className=" py-2">{vehicle.phoneNumber}</td>
+                    <td className={` py-2 text-${vehicle.status}`}>
+                      {status[vehicle.status]}
+                    </td>
+                    <td className=" py-2">
+                      <PreviewIcon />
                     </td>
                   </tr>
                 ))}
@@ -176,11 +178,11 @@ const Team = () => {
             )}
           </table>
         </Box>
-        {/* <BasicTable employees={employees} /> */}
+        {/* <BasicTable vehicles={vehicles} /> */}
         <TeamMemberModal open={open} setOpen={setOpen} />
       </Box>
     </>
   );
 };
 
-export default Team;
+export default InspectionTable;
