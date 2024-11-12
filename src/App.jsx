@@ -37,7 +37,7 @@ function App() {
                 <Route path='/login' element={<LoginPage />} />
                 <Route path="/team" element={<Team />} />
                 {/* <Route path="/addTeamMember" element={<TeamMemberFormPage />} /> */}
-                <Route path="/" element={<InspectionForm />} />
+                <Route path="/" element={<LoginPage />} />
                 <Route path="/inspectionForm" element={<InspectionForm />} />
                 <Route path="/viewInspection" element={<ViewInspection />} />
                 <Route path="*" element={<Error404 />} />
