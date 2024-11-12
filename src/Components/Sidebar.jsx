@@ -10,10 +10,11 @@ import CarCrashIcon from "@mui/icons-material/CarCrash";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { logo } from "../assets";
 import useTheme from "../Contexts/theme";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
   const { themeMode, lightTheme, darkTheme } = useTheme();
   const handleThemeToggle = () => {
     themeMode === "dark" ? lightTheme() : darkTheme();
@@ -42,12 +43,13 @@ const Sidebar = () => {
     },
   ];
 
-  return (
+  return <>
+  {location.pathname !== "/login" &&
     <div className="flex font-qanelasRegular mr-8 ">
       <div
         className={` ${
           open ? "w-72" : "w-20 "
-        }  dark:bg-darkModeSidebarBackground bg-lightModeSidebarBackground  h-screen [height:100%] p-5 pt-8 relative duration-300`}
+        }  dark:bg-darkModeSidebarBackground bg-lightModeSidebarBackground  h-screen h-100vh p-5 pt-8 relative duration-300`}
       >
         <ChevronLeftIcon
           className={`absolute cursor-pointer -right-4 top-9 w-7 bg-primaryOrange
@@ -90,7 +92,7 @@ const Sidebar = () => {
           </span>
         </li>
       </div>
-    </div>
-  );
+    </div>}
+    </>
 };
 export default Sidebar;
