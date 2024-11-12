@@ -2,7 +2,8 @@ import React from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
 import "./Topbar.css";
-const Topbar = ({ title, userName }) => {
+const Topbar = ({ title }) => {
+  const username = localStorage.getItem("userName");
   return (
     <div
       className="flex justify-between items-center mr-4 text-black dark:text-white border-b-2 border-black dark:border-white p-4"
@@ -15,7 +16,7 @@ const Topbar = ({ title, userName }) => {
             </div> */}
       {/* User Name should save in local storrage to get it directly */}
       <div className="flex flex-row items-center ">
-        <h1 className="mr-2 font-qanelasRegular text-[20px] ">{"John Doe"}</h1>
+        <h1 className="mr-2 font-qanelasRegular text-[20px] ">{username}</h1>
         <AccountCircleIcon sx={{ fontSize: "50px" }} />
       </div>
     </div>

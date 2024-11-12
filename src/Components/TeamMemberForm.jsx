@@ -18,16 +18,17 @@ import InputBox from "../constants/InputBox";
 const TeamMemberFormPage = () => {
   const { themeMode } = useTheme();
   const navigate = useNavigate();
+  const authToken = localStorage.getItem("jwtToken")
   const handleFormSubmit = async (values) => {
     const result = await fetch(
-      `https://mechanic-on-wheels-backend.vercel.app/employee/addNewEmployee`,
+      `http://localhost:3000/employee/addNewEmployee`,
       {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          Authorization: localStorage.getItem("jwtToken"),
         },
         body: JSON.stringify({
+          authToken: authToken,
           name: values.fullName,
           email: values.email,
           password: values.password,
@@ -90,7 +91,7 @@ const TeamMemberFormPage = () => {
                   helperText={touched.email && errors.email}
                   themeMode={themeMode}
                 />
-                {/* <InputBox
+                <InputBox
                   label="Password"
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -99,7 +100,7 @@ const TeamMemberFormPage = () => {
                   error={!!touched.password && !!errors.password}
                   themeMode={themeMode}
                   helperText={touched.password && errors.password}
-                /> */}
+                />
                 <InputBox
                   label="Contact Number"
                   handleBlur={handleBlur}
