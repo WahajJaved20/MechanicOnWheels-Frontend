@@ -67,7 +67,7 @@ const Sidebar = () => {
   ];
 
   return <>
-    {location.pathname !== "/login" &&
+    {(location.pathname !== "/login" && location.pathname !== "/") &&
       <div className="flex font-qanelasRegular mr-8 ">
         <div
           className={` ${open ? "w-72" : "w-20 "
