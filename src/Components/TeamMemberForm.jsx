@@ -1,6 +1,13 @@
 import React from "react";
 import Topbar from "./Topbar";
-import { Box, Button, Select, InputLabel, MenuItem } from "@mui/material";
+import {
+  Box,
+  Button,
+  Select,
+  InputLabel,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import { checkoutSchema, initialValues } from "../constants/userSchema";
 import { Formik, Form } from "formik";
 import useTheme from "../Contexts/theme";
@@ -41,9 +48,17 @@ const TeamMemberFormPage = () => {
   return (
     <>
       {/* <Topbar title={"Add Team Member"} userName={"Wahaj Javed"} /> */}
+      <Typography>
+        <h1>Add New Member</h1>
+      </Typography>
       <Box>
-        <Formik initialValues={initialValues} validationSchema={checkoutSchema}>
-          {({ values, errors, touched, handleBlur, handleChange }) => (
+        <Formik
+          validateOnBlur={true}
+          validateOnChange={true}
+          initialValues={initialValues}
+          validationSchema={checkoutSchema}
+        >
+          {({ values, errors, touched, handleBlur, handleChange, dirty }) => (
             <Form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -75,7 +90,7 @@ const TeamMemberFormPage = () => {
                   helperText={touched.email && errors.email}
                   themeMode={themeMode}
                 />
-                <InputBox
+                {/* <InputBox
                   label="Password"
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -84,7 +99,7 @@ const TeamMemberFormPage = () => {
                   error={!!touched.password && !!errors.password}
                   themeMode={themeMode}
                   helperText={touched.password && errors.password}
-                />
+                /> */}
                 <InputBox
                   label="Contact Number"
                   handleBlur={handleBlur}
@@ -96,6 +111,7 @@ const TeamMemberFormPage = () => {
                   helperText={touched.contact && errors.contact}
                 />
                 <InputBox
+                  type="number"
                   label="Age"
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -109,7 +125,7 @@ const TeamMemberFormPage = () => {
                   className="font-qanelasRegular"
                   id="access"
                   sx={{
-                    color: `${themeMode === "dark" ? "white" : "black"}`,
+                    color: `${themeMode === "dark" ? "white" : "#102a43"}`,
                     fontFamily: "qanelasRegular",
                     fontSize: "20px",
                   }}
@@ -127,23 +143,23 @@ const TeamMemberFormPage = () => {
                     gridColumn: "span 4",
                     "& .MuiOutlinedInput-root": {
                       borderBottom: `4px solid ${
-                        themeMode === "dark" ? "white" : "black"
+                        themeMode === "dark" ? "white" : "#102a43"
                       }`,
-                      color: `${themeMode === "dark" ? "white" : "black"}`,
+                      color: `${themeMode === "dark" ? "white" : "#102a43"}`,
                       fontFamily: "qanelasRegular",
                     },
 
                     "& .MuiInputLabel-root": {
-                      color: `${themeMode === "dark" ? "white" : "black"}`,
+                      color: `${themeMode === "dark" ? "white" : "#102a43"}`,
                       fontFamily: "qanelasRegular",
                       fontSize: "20px",
                     },
                     "& .MuiSelect-select": {
-                      color: `${themeMode === "light" ? "white" : "black"}`,
-                      bgcolor: `${themeMode === "dark" ? "white" : "black"}`,
+                      color: `${themeMode === "light" ? "white" : "#102a43"}`,
+                      bgcolor: `${themeMode === "dark" ? "white" : "#102a43"}`,
                     },
                     "& .MuiSelect-iconOutlined": {
-                      color: `${themeMode === "light" ? "white" : "black"}`,
+                      color: `${themeMode === "light" ? "white" : "#102a43"}`,
                     },
                     "& .Mui-focused": {
                       bgcolor: "red",
@@ -156,16 +172,18 @@ const TeamMemberFormPage = () => {
                 >
                   <MenuItem
                     sx={{
-                      color: `${themeMode === "dark" ? "black" : "white"}`,
-                      bgcolor: `${themeMode === "light" ? "black" : "white"}`,
+                      color: `${themeMode === "dark" ? "#102a43" : "white"}`,
+                      bgcolor: `${themeMode === "light" ? "#102a43" : "white"}`,
 
                       "&:hover": {
-                        bgcolor: `${themeMode === "dark" ? "black" : "white"}`,
-                        color: `${themeMode === "light" ? "black" : "white"}`,
+                        bgcolor: `${
+                          themeMode === "dark" ? "#102a43" : "white"
+                        }`,
+                        color: `${themeMode === "light" ? "#102a43" : "white"}`,
                       },
                       "&.Mui-selected": {
                         bgcolor: "#9fe96e",
-                        color: "black",
+                        color: "#102a43",
                       },
                       fontFamily: "qanelasRegular",
                     }}
@@ -175,15 +193,17 @@ const TeamMemberFormPage = () => {
                   </MenuItem>
                   <MenuItem
                     sx={{
-                      color: `${themeMode === "dark" ? "black" : "white"}`,
-                      bgcolor: `${themeMode === "light" ? "black" : "white"}`,
+                      color: `${themeMode === "dark" ? "#102a43" : "white"}`,
+                      bgcolor: `${themeMode === "light" ? "#102a43" : "white"}`,
                       "&:hover": {
-                        bgcolor: `${themeMode === "dark" ? "black" : "white"}`,
-                        color: `${themeMode === "light" ? "black" : "white"}`,
+                        bgcolor: `${
+                          themeMode === "dark" ? "#102a43" : "white"
+                        }`,
+                        color: `${themeMode === "light" ? "#102a43" : "white"}`,
                       },
                       "&.Mui-selected": {
                         bgcolor: "#9fe96e",
-                        color: "black",
+                        color: "#102a43",
                       },
                       fontFamily: "qanelasRegular",
                     }}
@@ -194,15 +214,17 @@ const TeamMemberFormPage = () => {
 
                   <MenuItem
                     sx={{
-                      color: `${themeMode === "dark" ? "black" : "white"}`,
-                      bgcolor: `${themeMode === "light" ? "black" : "white"}`,
+                      color: `${themeMode === "dark" ? "#102a43" : "white"}`,
+                      bgcolor: `${themeMode === "light" ? "#102a43" : "white"}`,
                       "&:hover": {
-                        bgcolor: `${themeMode === "dark" ? "black" : "white"}`,
-                        color: `${themeMode === "light" ? "black" : "white"}`,
+                        bgcolor: `${
+                          themeMode === "dark" ? "#102a43" : "white"
+                        }`,
+                        color: `${themeMode === "light" ? "#102a43" : "white"}`,
                       },
                       "&.Mui-selected": {
                         bgcolor: "#9fe96e",
-                        color: "black",
+                        color: "#102a43",
                       },
                       fontFamily: "qanelasRegular",
                     }}
@@ -217,8 +239,8 @@ const TeamMemberFormPage = () => {
                   type="submit"
                   variant="contained"
                   sx={{
-                    bgcolor: "#9fe96e",
-                    color: "black",
+                    bgcolor: "#102a43",
+                    color: "white",
                     fontFamily: "qanelasRegular",
                   }}
                   disabled={

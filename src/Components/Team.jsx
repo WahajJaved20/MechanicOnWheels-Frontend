@@ -5,6 +5,7 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { Link } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
 import "./Team.css";
 import BasicTable from "./Table";
 import { Button } from "flowbite-react";
@@ -15,6 +16,24 @@ import CircularIndeterminate from "./Loader";
 const Team = () => {
   const [employees, setEmployees] = useState([]);
   const [open, setOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // Holds the value of the search input
+  const [originalEmp, setOriginalEmp] = useState([]); // Holds the filtered list of users
+
+  // Handle the search input change
+  const handleSearchChange = (event) => {
+    const query = event.target.value;
+    setSearchTerm(query);
+
+    // Filter users by name or email
+    const filteredUsers = originalEmp.filter(
+      (user) =>
+        user.name.toLowerCase().includes(query.toLowerCase()) ||
+        user.email.toLowerCase().includes(query.toLowerCase())
+    );
+    console.log(filteredUsers, query, originalEmp, "filteredUsers");
+    setEmployees(query.length === 0 ? originalEmp : filteredUsers); // Update the results
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,6 +43,7 @@ const Team = () => {
         );
         const data = await response.json();
         setEmployees(data);
+        setOriginalEmp(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -33,23 +53,36 @@ const Team = () => {
   return (
     <>
       <Topbar title={"Manage Team"} userName={"Wahaj Javed"} />
-      <div className="my-6 justify-end">
+      <div className="my-6 flex justify-between">
         {/* <Link to="/addTeamMember"> */}
-        <Button
-          onClick={() => {
-            setOpen(true);
-          }}
-          className="flex flex-row border px-8 rounded-lg items-center py-2  border-2 border-black dark:border-white font-breulGroteskBold buttonShadow hover:bg-primaryGreen  text-black dark:text-white dark:hover:text-black"
-        >
-          <GroupsIcon className="mr-2" />
-          <h1 className="">Add a Member</h1>
-        </Button>
-        {/* </Link> */}
+        <div>
+          <Button
+            onClick={() => {
+              setOpen(true);
+            }}
+            className="flex flex-row border px-8 rounded-lg items-center py-2  border-2 border-black dark:border-white font-breulGroteskBold buttonShadow hover:bg-primaryGreen  text-black dark:text-white dark:hover:text-black"
+          >
+            <GroupsIcon className="mr-2" />
+            <h1 className="">Add a Member</h1>
+          </Button>
+        </div>
+        <div className="  searchShadow justify-start  font-qanelasRegular  px-8 py-2 flex flex-row">
+          <SearchIcon className="mr-2 my-2" />
+          <input
+            className="border-none outline-none bg-white dark:bg-black"
+            placeholder="Search by name or email"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
       </div>
       {/** TABLE */}
       <div className="mr-8">
         <table className="mt-8  border rounded-lg table-auto w-full text-lg text-center dark:text-white bg-[#102a43]">
-          <thead className="uppercase text-black  font-breulGroteskBold ">
+          <thead
+            className="uppercase   font-breulGroteskBold "
+            style={{ color: "#c1c8ce" }}
+          >
             <tr>
               <th scope="col" className="px-6 py-3">
                 Emp. No
@@ -73,33 +106,34 @@ const Team = () => {
           </thead>
           {/* <CircularIndeterminate /> */}
           <tbody>
-            {employees.map((employee, index) => (
-              <tr
-                key={employee.id}
-                className={`font-qanelasRegular ${
-                  (index + 1) % 2 == 0
-                    ? "bg-black dark:bg-white text-white dark:text-black rounded-lg"
-                    : "bg-white dark:bg-black"
-                }`}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
+            {employees.length > 0 ? (
+              employees.map((employee, index) => (
+                <tr
+                  key={employee.id}
+                  className={`font-qanelasRegular ${
+                    (index + 1) % 2 == 0
+                      ? "bg-[#2f3349] dark:bg-white text-white dark:text-black rounded-lg"
+                      : "bg-white   dark:bg-[#2f3349]"
+                  }`}
                 >
-                  {index + 1}
-                </th>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
-                >
-                  {employee.name}
-                </th>
-                <td className=" py-2">{employee.email}</td>
-                <td className=" py-2">{employee.age}</td>
-                <td className=" py-2">{employee.phoneNumber}</td>
-                <td className="px-6 py-2">
-                  <div
-                    className={` items-center text-center py-2 
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium whitespace-nowrap"
+                  >
+                    {index + 1}
+                  </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium whitespace-nowrap"
+                  >
+                    {employee.name}
+                  </th>
+                  <td className=" py-2">{employee.email}</td>
+                  <td className=" py-2">{employee.age}</td>
+                  <td className=" py-2">{employee.phoneNumber}</td>
+                  <td className="px-6 py-2">
+                    <div
+                      className={` items-center text-center py-2 
                                     ${
                                       employee.accessLevel === "admin"
                                         ? " text-primaryGreen"
@@ -107,26 +141,40 @@ const Team = () => {
                                         ? " text-primaryOrange"
                                         : " text-primaryBlue"
                                     }`}
-                  >
-                    {employee.accessLevel === "admin" && (
-                      <AdminPanelSettingsOutlinedIcon />
-                    )}
-                    {employee.accessLevel === "manager" && (
-                      <SecurityOutlinedIcon />
-                    )}
-                    {employee.accessLevel === "user" && (
-                      <LockOpenOutlinedIcon />
-                    )}
-                    {/* <button disabled={true} className=""> */}
-                    {employee.accessLevel}
-                    {/* </button> */}
-                  </div>
+                    >
+                      {employee.accessLevel === "admin" && (
+                        <AdminPanelSettingsOutlinedIcon />
+                      )}
+                      {employee.accessLevel === "manager" && (
+                        <SecurityOutlinedIcon />
+                      )}
+                      {employee.accessLevel === "user" && (
+                        <LockOpenOutlinedIcon />
+                      )}
+                      {/* <button disabled={true} className=""> */}
+                      {employee.accessLevel}
+                      {/* </button> */}
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="4"
+                  style={{
+                    textAlign: "center",
+                    fontStyle: "italic",
+                    color: "#999",
+                  }}
+                >
+                  No data available
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
-        {/* <BasicTable /> */}
+        {/* <BasicTable employees={employees} /> */}
         <TeamMemberModal open={open} setOpen={setOpen} />
       </div>
     </>

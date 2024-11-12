@@ -10,13 +10,20 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   // width: 400,
-  height: "600px",
-  overflowY: "scroll",
+  "max-height": "500px",
+  overflow: "scroll",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
+const styles = (theme) => ({
+  modalStyle1: {
+    overflow: "scroll",
+    height: "100%",
+    display: "block",
+  },
+});
 const TeamMemberModal = ({ open, setOpen }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -24,6 +31,7 @@ const TeamMemberModal = ({ open, setOpen }) => {
   return (
     <div>
       <Modal
+        className="modalStyle"
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
