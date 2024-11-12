@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { loginBg } from "../assets"
 import { Box, TextField, Typography, Button } from "@mui/material";
 import InputBox from "../constants/InputBox";
@@ -10,6 +10,27 @@ import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
     const { themeMode } = useTheme();
     const navigate = useNavigate();
+    useEffect(()=>{
+        const verifyAlreadyLoggedIn = async() => {
+            const result = await fetch(
+                `https://mechanic-on-wheels-backend.vercel.app/verifyJwt`,
+                {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        jwtToken: localStorage.getItem("jwtToken")
+                    }),
+                }
+            ).then((resp) => resp.json());
+            if (result.type === "Success") {
+                toast.success("Already Logged In");
+                navigate("/team");
+            }
+        }
+        verifyAlreadyLoggedIn();
+    })
     const handleFormSubmit = async (values) => {
         const result = await fetch(
             `https://mechanic-on-wheels-backend.vercel.app/login`,
