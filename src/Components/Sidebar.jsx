@@ -35,6 +35,12 @@ const Sidebar = () => {
       to: "/inspectionForm",
     },
     {
+      title: "Car Inspection List",
+      src: <CarCrashIcon />,
+      gap: false,
+      to: "/inspection",
+    },
+    {
       title: "View Recent Inspection",
       src: <SavedSearchIcon />,
       gap: false,
