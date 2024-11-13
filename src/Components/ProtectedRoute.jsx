@@ -25,6 +25,7 @@ const ProtectedRoute = ({ children }) => {
         console.log(result);
         if (result.type === "Success") {
             stopLoading();
+            setVerified(true);
             return true;
         }
         stopLoading();
