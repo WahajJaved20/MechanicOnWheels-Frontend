@@ -6,6 +6,7 @@ import { useLoading } from "../Contexts/loadingContext";
 
 const ProtectedRoute = ({ children }) => {
     const {startLoading, stopLoading} = useLoading();
+    const [verified, setVerified] = useState(false);
     const isAuthenticated = async () => {
         startLoading();
         const navigate = useNavigate();
@@ -30,7 +31,7 @@ const ProtectedRoute = ({ children }) => {
         navigate("/login");
         return false;
     }
-    return <>{isAuthenticated() ? children : <></>}</>
+    return <>{!verified ? ( isAuthenticated() ? children : <></>) : <></>}</>
 };
 
 export default ProtectedRoute;
