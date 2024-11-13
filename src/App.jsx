@@ -13,6 +13,7 @@ import ViewInspection from "./Components/ViewInspection";
 import NotFound from "./404";
 import Error404 from "./404";
 import LoginPage from "./Components/LoginPage";
+import ProtectedRoute from "./Components/ProtectedRoute";
 function App() {
   const [themeMode, setThemeMode] = useState("light");
   const darkTheme = () => {
@@ -35,11 +36,11 @@ function App() {
               <Routes>
                 {/* <Route path="/" element={<Dashboard />} /> */}
                 <Route path='/login' element={<LoginPage />} />
-                <Route path="/team" element={<Team />} />
+                <Route path="/team" element={<ProtectedRoute><Team /></ProtectedRoute>} />
                 {/* <Route path="/addTeamMember" element={<TeamMemberFormPage />} /> */}
                 <Route path="/" element={<LoginPage />} />
-                <Route path="/inspectionForm" element={<InspectionForm />} />
-                <Route path="/viewInspection" element={<ViewInspection />} />
+                <Route path="/inspectionForm" element={<ProtectedRoute><InspectionForm /></ProtectedRoute>} />
+                <Route path="/viewInspection" element={<ProtectedRoute><ViewInspection /></ProtectedRoute>} />
                 <Route path="*" element={<Error404 />} />
               </Routes>
             </div>
