@@ -1,40 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import LoginPage from "./LoginPage";
-import LoadingBackdrop from "./FullLoder";
 import { useLoading } from "../Contexts/loadingContext";
 
 const ProtectedRoute = ({ children }) => {
-    const { startLoading, stopLoading } = useLoading();
     const [verified, setVerified] = useState(false);
-    const isAuthenticated = async () => {
-        if (!verified) {
-            startLoading();
-            const navigate = useNavigate();
-            const result = await fetch(
+    const navigate = useNavigate();
+    useEffect(()=>{
+        const isAuthenticated = async () => {
+            if (!verified) {
+                const result = await fetch(
                 `https://mechanic-on-wheels-backend.vercel.app/verifyJwt`,
-                {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        jwtToken: localStorage.getItem("jwtToken")
-                    }),
+                    {
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            jwtToken: localStorage.getItem("jwtToken")
+                        }),
+                    }
+                ).then((resp) => resp.json());
+                console.log(result);
+                if (result.type === "Success") {
+                    setVerified(true);
+                    return true;
                 }
-            ).then((resp) => resp.json());
-            console.log(result);
-            if (result.type === "Success") {
-                stopLoading();
-                setVerified(true);
-                return true;
+                navigate("/login");
+                return false;
             }
-            stopLoading();
-            navigate("/login");
-            return false;
         }
-    }
-    return <>{(isAuthenticated() ? children : <></>)}</>
+        isAuthenticated();
+    },[])
+    return <>{verified ? children : <></>}</>
 };
 
 export default ProtectedRoute;
