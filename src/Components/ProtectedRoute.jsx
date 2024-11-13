@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import LoadingBackdrop from "./FullLoder";
+import { useLoading } from "../Contexts/loadingContext";
 
 const ProtectedRoute = ({ children }) => {
-    const [isLoading, setIsLoading] = useState(false);
+    const {startLoading, stopLoading} = useLoading();
     const isAuthenticated = async () => {
-        setIsLoading(true);
+        startLoading();
         const navigate = useNavigate();
         const result = await fetch(
             `https://mechanic-on-wheels-backend.vercel.app/verifyJwt`,
@@ -22,18 +23,14 @@ const ProtectedRoute = ({ children }) => {
         ).then((resp) => resp.json());
         console.log(result);
         if (result.type === "Success") {
-            setIsLoading(false);
+            stopLoading();
             return true;
         }
-        setIsLoading(false);
+        stopLoading();
         navigate("/login");
         return false;
     }
-    return <>
-        {isLoading ? <LoadingBackdrop /> : <>
-            {isAuthenticated() ? children : <></>}
-        </>}
-    </>;
+    return <>{isAuthenticated() ? children : <></>}</>
 };
 
 export default ProtectedRoute;
