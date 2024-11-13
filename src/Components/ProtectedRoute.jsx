@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import LoginPage from "./LoginPage";
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({children}) => {
     const isAuthenticated = async () => {
         const navigate = useNavigate();
         const result = await fetch(
