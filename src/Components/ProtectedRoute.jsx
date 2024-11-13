@@ -1,10 +1,10 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import LoginPage from "./LoginPage";
 
-
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = () => {
     const isAuthenticated = async () => {
+        const navigate = useNavigate();
         const result = await fetch(
             `https://mechanic-on-wheels-backend.vercel.app/verifyJwt`,
             {
@@ -21,6 +21,7 @@ const ProtectedRoute = ({ children }) => {
         if (result.type === "Success") {
             return true;
         }
+        navigate("/login");
         return false;
     }
   return isAuthenticated() ? children : <LoginPage />;
