@@ -12,6 +12,7 @@ import InspectionForm from "./Components/InspectionForm";
 import ViewInspection from "./Components/ViewInspection";
 import NotFound from "./404";
 import Error404 from "./404";
+import InspectionTable from "./Components/InspectiponTable";
 import LoginPage from "./Components/LoginPage";
 import ProtectedRoute from "./Components/ProtectedRoute";
 function App() {
@@ -41,6 +42,8 @@ function App() {
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/inspectionForm" element={<ProtectedRoute><InspectionForm /></ProtectedRoute>} />
                 <Route path="/viewInspection" element={<ProtectedRoute><ViewInspection /></ProtectedRoute>} />
+                <Route path="/inspection" element={<ProtectedRoute><InspectionTable /></ProtectedRoute>} />
+
                 <Route path="*" element={<Error404 />} />
               </Routes>
             </div>
