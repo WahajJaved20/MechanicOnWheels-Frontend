@@ -5,34 +5,36 @@ import LoadingBackdrop from "./FullLoder";
 import { useLoading } from "../Contexts/loadingContext";
 
 const ProtectedRoute = ({ children }) => {
-    const {startLoading, stopLoading} = useLoading();
+    const { startLoading, stopLoading } = useLoading();
     const [verified, setVerified] = useState(false);
     const isAuthenticated = async () => {
-        startLoading();
-        const navigate = useNavigate();
-        const result = await fetch(
-            `https://mechanic-on-wheels-backend.vercel.app/verifyJwt`,
-            {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify({
-                    jwtToken: localStorage.getItem("jwtToken")
-                }),
+        if (!verified) {
+            startLoading();
+            const navigate = useNavigate();
+            const result = await fetch(
+                `https://mechanic-on-wheels-backend.vercel.app/verifyJwt`,
+                {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        jwtToken: localStorage.getItem("jwtToken")
+                    }),
+                }
+            ).then((resp) => resp.json());
+            console.log(result);
+            if (result.type === "Success") {
+                stopLoading();
+                setVerified(true);
+                return true;
             }
-        ).then((resp) => resp.json());
-        console.log(result);
-        if (result.type === "Success") {
             stopLoading();
-            setVerified(true);
-            return true;
+            navigate("/login");
+            return false;
         }
-        stopLoading();
-        navigate("/login");
-        return false;
     }
-    return <>{!verified ? ( isAuthenticated() ? children : <></>) : <></>}</>
+    return <>{(isAuthenticated() ? children : <></>)}</>
 };
 
 export default ProtectedRoute;
