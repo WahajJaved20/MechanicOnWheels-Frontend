@@ -65,7 +65,7 @@ const InspectionTable = () => {
 				);
 				const data = await response.json();
 				stopLoading();
-				// setVehicles(data);
+				setVehicles(data);
 				//  setOriginalEmp(data);
 			} catch (error) {
 				stopLoading();

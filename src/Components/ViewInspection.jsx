@@ -61,7 +61,6 @@ const InspectionForm = () => {
             4: ""
         }
     });
-
     useEffect(() => {
         const getData = async () => {
             startLoading();
@@ -75,7 +74,7 @@ const InspectionForm = () => {
             setValues(result.ss);
             stopLoading();
         }
-        getData();
+            getData();
     }, [])
     const { themeMode } = useTheme();
     return <>
