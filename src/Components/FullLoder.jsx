@@ -1,15 +1,25 @@
 import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Bars } from "react-loader-spinner";
+import {useLoading} from "../Contexts/loadingContext";
 
-export default function SimpleBackdrop({ open, handleClose }) {
+export default function LoadingBackdrop() {
+  const {isLoading} = useLoading();
   return (
+    isLoading && 
     <div>
       <Backdrop
-        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
-        open={open}
-        onClick={handleClose}
+        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 10 })}
+        open={true}
       >
-        <CircularProgress color="inherit" />
+        <Bars
+          height="80"
+          width="80"
+          radius="9"
+          color="#ff844b"
+          ariaLabel="loading"
+          wrapperStyle
+          wrapperClass
+        />
       </Backdrop>
     </div>
   );

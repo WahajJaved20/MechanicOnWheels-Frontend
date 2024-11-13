@@ -10,11 +10,15 @@ import { batteryFields, brakeFields, interiorExteriorFields, optionValues, under
 import RichTextEditor from "./RichTextEditor";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import LoadingBackdrop from "./FullLoder";
+import { useLoading } from "../Contexts/loadingContext";
 
 const InspectionForm = () => {
     const [preInspectionReport, setPreInspectionReport] = useState();
     const [postInspectionReport, setPostInspectionReport] = useState();
     const [values, setValues] = useState(optionValues);
+    const { startLoading, stopLoading } = useLoading();
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChanges = (section, key, event) => {
@@ -27,6 +31,7 @@ const InspectionForm = () => {
         });
     };
     const handleFormSubmit = async (val) => {
+        startLoading();
         const form = {
             customerName: val.customerName,
             mileage: val.mileage,
@@ -57,9 +62,10 @@ const InspectionForm = () => {
         }).then((resp) => resp.json());
         if (result.type === "Success") {
             toast.success('Inspection Successfully Added');
-            // setLoading(false);
+            stopLoading();
             navigate('/');
         } else {
+            stopLoading();
             toast.error(result.message);
         }
     }

@@ -49,7 +49,9 @@ const Sidebar = () => {
       title: "Car Inspection List",
       src: <CarCrashIcon />,
       gap: false,
-      to: "/inspection",
+      onClick: () => {
+        navigate("/inspection")
+      }
     },
     {
       title: "View Recent Inspection",
