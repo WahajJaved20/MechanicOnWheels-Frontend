@@ -15,7 +15,6 @@ const Team = () => {
 	const [employees, setEmployees] = useState([]);
 	const [open, setOpen] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
-	const [originalEmp, setOriginalEmp] = useState([]);
 	const { startLoading, stopLoading } = useLoading();
 
 	const handleSearchChange = (event) => {
@@ -23,13 +22,13 @@ const Team = () => {
 		setSearchTerm(query);
 
 		// Filter users by name or email
-		const filteredUsers = originalEmp.filter(
+		const filteredUsers = employees.filter(
 			(user) =>
 				user.name.toLowerCase().includes(query.toLowerCase()) ||
 				user.email.toLowerCase().includes(query.toLowerCase())
 		);
-		console.log(filteredUsers, query, originalEmp, "filteredUsers");
-		setEmployees(query.length === 0 ? originalEmp : filteredUsers); // Update the results
+		console.log(filteredUsers, query, employees, "filteredUsers");
+		setEmployees(query.length === 0 ? employees : filteredUsers); // Update the results
 	};
 
 	useEffect(() => {
@@ -42,7 +41,6 @@ const Team = () => {
 				);
 				const data = await response.json();
 				setEmployees(data);
-				setOriginalEmp(data);
 				stopLoading();
 			} catch (error) {
 				console.error("Error fetching data:", error);
