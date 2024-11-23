@@ -7,7 +7,8 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import CarCrashIcon from "@mui/icons-material/CarCrash";
-import LogoutIcon from '@mui/icons-material/Logout';
+import CarRepairIcon from "@mui/icons-material/CarRepair";
+import LogoutIcon from "@mui/icons-material/Logout";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { logo } from "../assets";
 import useTheme from "../Contexts/theme";
@@ -28,8 +29,8 @@ const Sidebar = () => {
       title: "Team",
       src: <GroupsIcon />,
       onClick: () => {
-        navigate("/team")
-      }
+        navigate("/team");
+      },
     },
     // {
     //   title: "Add Employee",
@@ -38,29 +39,30 @@ const Sidebar = () => {
     //   to: "/addTeamMember",
     // },
     {
-      title: "Car Inspection",
-      src: <CarCrashIcon />,
-      gap: false,
-      onClick: () => {
-        navigate("/inspectionForm")
-      }
-    },
-    {
       title: "Car Inspection List",
+      src: <CarRepairIcon />,
+      gap: false,
+      onClick: () => {
+        navigate("/inspection");
+      },
+    },
+    {
+      title: "Add Car Inspection",
       src: <CarCrashIcon />,
       gap: false,
       onClick: () => {
-        navigate("/inspection")
-      }
+        navigate("/inspectionForm");
+      },
     },
-    {
-      title: "View Recent Inspection",
-      src: <SavedSearchIcon />,
-      gap: false,
-      onClick: () => {
-        navigate("/viewInspection")
-      }
-    },
+
+    // {
+    //   title: "View Recent Inspection",
+    //   src: <SavedSearchIcon />,
+    //   gap: false,
+    //   onClick: () => {
+    //     navigate("/viewInspection");
+    //   },
+    // },
     {
       title: "Log Out",
       src: <LogoutIcon />,
@@ -69,34 +71,41 @@ const Sidebar = () => {
       onClick: () => {
         localStorage.removeItem("jwtToken");
         localStorage.removeItem("userName");
-        navigate("/login")
-      }
-    }
+        navigate("/login");
+      },
+    },
   ];
 
-  return <>
-    {(location.pathname !== "/login" && location.pathname !== "/") &&
-      <div className="flex font-qanelasRegular mr-8 ">
-        <div
-          className={` ${open ? "w-72" : "w-20 "
+  return (
+    <>
+      {location.pathname !== "/login" && location.pathname !== "/" && (
+        <div className="flex font-qanelasRegular mr-8 ">
+          <div
+            style={{ height: "100%" }}
+            className={` ${
+              open ? "w-72" : "w-20 "
             }  dark:bg-darkModeSidebarBackground bg-lightModeSidebarBackground  h-screen h-100vh p-5 pt-8 relative duration-300`}
-        >
-          <ChevronLeftIcon
-            className={`absolute cursor-pointer -right-4 top-9 w-7 bg-primaryOrange
+          >
+            <ChevronLeftIcon
+              className={`absolute cursor-pointer -right-4 top-9 w-7 bg-primaryOrange
            border-2 rounded-full  ${!open && "rotate-180"}`}
-            onClick={() => setOpen(!open)}
-            sx={{ fontSize: "30px" }}
-          />
-          <div className="flex gap-x-4 items-center">
-            <img src={logo} className={`cursor-pointer duration-500 ${open}`} />
-          </div>
-          <ul className="pt-6">
-            {Menus.map((Menu, index) => (
+              onClick={() => setOpen(!open)}
+              sx={{ fontSize: "30px" }}
+            />
+            <div className="flex gap-x-4 items-center">
+              <img
+                src={logo}
+                className={`cursor-pointer duration-500 ${open}`}
+              />
+            </div>
+            <ul className="pt-6">
+              {Menus.map((Menu, index) => (
                 <li
                   key={index}
                   className={`flex rounded-md p-2 cursor-pointer hover:bg-primaryOrange hover:text-black dark:text-black text-white text-gray-300 text-lg items-center gap-x-4 
-              ${Menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"
-                    } `}
+              ${Menu.gap ? "mt-9" : "mt-2"} ${
+                    index === 0 && "bg-light-white"
+                  } `}
                   onClick={() => {
                     Menu.onClick();
                   }}
@@ -108,20 +117,22 @@ const Sidebar = () => {
                     {Menu.title}
                   </span>
                 </li>
-            ))}
-          </ul>
-          <li
-            onClick={handleThemeToggle}
-            className={`flex rounded-md p-2 cursor-pointer dark:text-black text-white text-lg items-center gap-x-4 
+              ))}
+            </ul>
+            <li
+              onClick={handleThemeToggle}
+              className={`flex rounded-md p-2 cursor-pointer dark:text-black text-white text-lg items-center gap-x-4 
                 dark:hover:bg-[#00d5ff] hover:bg-[#ffda71] hover:text-black`}
-          >
-            {themeMode === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
-            <span className={`${!open && "hidden"} origin-left duration-200`}>
-              {themeMode === "dark" ? "Dark Theme" : "Light Theme"}
-            </span>
-          </li>
+            >
+              {themeMode === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
+              <span className={`${!open && "hidden"} origin-left duration-200`}>
+                {themeMode === "dark" ? "Dark Theme" : "Light Theme"}
+              </span>
+            </li>
+          </div>
         </div>
-      </div>}
-  </>
+      )}
+    </>
+  );
 };
 export default Sidebar;

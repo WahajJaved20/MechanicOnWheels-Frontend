@@ -3,35 +3,35 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useLoading } from "../Contexts/loadingContext";
 
 const ProtectedRoute = ({ children }) => {
-    const [verified, setVerified] = useState(false);
-    const navigate = useNavigate();
-    useEffect(()=>{
-        const isAuthenticated = async () => {
-            if (!verified) {
-                const result = await fetch(
-                `https://mechanic-on-wheels-backend.vercel.app/verifyJwt`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "content-type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            jwtToken: localStorage.getItem("jwtToken")
-                        }),
-                    }
-                ).then((resp) => resp.json());
-                console.log(result);
-                if (result.type === "Success") {
-                    setVerified(true);
-                    return true;
-                }
-                navigate("/login");
-                return false;
-            }
+  const [verified, setVerified] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const isAuthenticated = async () => {
+      if (!verified) {
+        const result = await fetch(
+          `https://mechanic-on-wheels-backend.vercel.app/verifyJwt`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              jwtToken: localStorage.getItem("jwtToken"),
+            }),
+          }
+        ).then((resp) => resp.json());
+        console.log(result);
+        if (result.type === "Success") {
+          setVerified(true);
+          return true;
         }
-        isAuthenticated();
-    },[])
-    return <>{verified ? children : <></>}</>
+        navigate("/login");
+        return false;
+      }
+    };
+    isAuthenticated();
+  }, []);
+  return <>{verified ? children : <></>}</>;
 };
 
 export default ProtectedRoute;
