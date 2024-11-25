@@ -10,6 +10,7 @@ import TeamMemberModal from "./TeamMemeberModal";
 import { useEffect, useState } from "react";
 import LoadingBackdrop from "./FullLoder";
 import { useLoading } from "../Contexts/loadingContext";
+import { baseUrl } from "../services/http";
 const status = {
   green: "Checked",
   yellow: "Future Attention",
@@ -59,12 +60,9 @@ const InspectionTable = () => {
     const fetchData = async () => {
       startLoading();
       try {
-        const response = await fetch(
-          "https://mechanic-on-wheels-backend.vercel.app/inspection/getInspections",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${baseUrl}/inspection/getInspections`, {
+          method: "GET",
+        });
         const data = await response.json();
         stopLoading();
         setVehicles(data);

@@ -22,12 +22,14 @@ const Sidebar = () => {
   const handleThemeToggle = () => {
     themeMode === "dark" ? lightTheme() : darkTheme();
   };
+  const admin = localStorage.getItem("accessLevel") === "admin" ? true : false;
   const Menus = [
     // { title: "Dashboard", src: <DashboardIcon />, to:"/" },
 
     {
       title: "Team",
       src: <GroupsIcon />,
+      admin: true,
       onClick: () => {
         navigate("/team");
       },
@@ -99,25 +101,52 @@ const Sidebar = () => {
               />
             </div>
             <ul className="pt-6">
-              {Menus.map((Menu, index) => (
-                <li
-                  key={index}
-                  className={`flex rounded-md p-2 cursor-pointer hover:bg-primaryOrange hover:text-black dark:text-black text-white text-gray-300 text-lg items-center gap-x-4 
+              {Menus.map((Menu, index) =>
+                !Menu.admin ? (
+                  <li
+                    key={index}
+                    className={`flex rounded-md p-2 cursor-pointer hover:bg-primaryOrange hover:text-black dark:text-black text-white text-gray-300 text-lg items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${
-                    index === 0 && "bg-light-white"
-                  } `}
-                  onClick={() => {
-                    Menu.onClick();
-                  }}
-                >
-                  {Menu.src}
-                  <span
-                    className={`${!open && "hidden"} origin-left duration-200`}
+                      index === 0 && "bg-light-white"
+                    } `}
+                    onClick={() => {
+                      Menu.onClick();
+                    }}
                   >
-                    {Menu.title}
-                  </span>
-                </li>
-              ))}
+                    {Menu.src}
+                    <span
+                      className={`${
+                        !open && "hidden"
+                      } origin-left duration-200`}
+                    >
+                      {Menu.title}
+                    </span>
+                  </li>
+                ) : (
+                  Menu.admin &&
+                  admin && (
+                    <li
+                      key={index}
+                      className={`flex rounded-md p-2 cursor-pointer hover:bg-primaryOrange hover:text-black dark:text-black text-white text-gray-300 text-lg items-center gap-x-4 
+              ${Menu.gap ? "mt-9" : "mt-2"} ${
+                        index === 0 && "bg-light-white"
+                      } `}
+                      onClick={() => {
+                        Menu.onClick();
+                      }}
+                    >
+                      {Menu.src}
+                      <span
+                        className={`${
+                          !open && "hidden"
+                        } origin-left duration-200`}
+                      >
+                        {Menu.title}
+                      </span>
+                    </li>
+                  )
+                )
+              )}
             </ul>
             {/* <li
               onClick={handleThemeToggle}

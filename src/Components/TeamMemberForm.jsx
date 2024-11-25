@@ -14,33 +14,32 @@ import useTheme from "../Contexts/theme";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import InputBox from "../constants/InputBox";
+import { baseUrl } from "../services/http";
 
-const TeamMemberFormPage = () => {
+const TeamMemberFormPage = ({ handleClose }) => {
   const { themeMode } = useTheme();
   const navigate = useNavigate();
   const authToken = localStorage.getItem("jwtToken");
   const handleFormSubmit = async (values) => {
-    const result = await fetch(
-      `https://mechanic-on-wheels-backend.vercel.app/employee/addNewEmployee`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          authToken: authToken,
-          name: values.fullName,
-          email: values.email,
-          password: values.password,
-          accessLevel: values.accessLevel,
-          age: values.age,
-          phoneNumber: values.contact,
-        }),
-      }
-    ).then((resp) => resp.json());
+    const result = await fetch(`${baseUrl}/employee/addNewEmployee`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        authToken: authToken,
+        name: values.fullName,
+        email: values.email,
+        password: values.password,
+        accessLevel: values.accessLevel,
+        age: values.age,
+        phoneNumber: values.contact,
+      }),
+    }).then((resp) => resp.json());
     if (result.type === "Success") {
       toast.success("Employee Successfully Added");
       // setLoading(false);
+      handleClose();
       navigate("/team");
     } else {
       toast.error(result.message);

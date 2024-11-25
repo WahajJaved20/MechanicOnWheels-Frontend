@@ -10,6 +10,7 @@ import { Button } from "flowbite-react";
 import { Box, ButtonBase, Typography } from "@mui/material";
 import TeamMemberModal from "./TeamMemeberModal";
 import { useLoading } from "../Contexts/loadingContext";
+import { baseUrl } from "../services/http";
 
 const Team = () => {
   const [employees, setEmployees] = useState([]);
@@ -35,10 +36,9 @@ const Team = () => {
     const fetchData = async () => {
       try {
         startLoading();
-        const response = await fetch(
-          "https://mechanic-on-wheels-backend.vercel.app/team/getTeamData",
-          { method: "GET" }
-        );
+        const response = await fetch(`${baseUrl}/team/getTeamData`, {
+          method: "GET",
+        });
         const data = await response.json();
         setEmployees(data);
         setOriginalEmp(data);

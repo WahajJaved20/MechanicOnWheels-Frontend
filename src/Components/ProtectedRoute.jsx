@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useLoading } from "../Contexts/loadingContext";
+import { baseUrl } from "../services/http";
 
 const ProtectedRoute = ({ children }) => {
   const [verified, setVerified] = useState(false);
@@ -8,18 +9,15 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const isAuthenticated = async () => {
       if (!verified) {
-        const result = await fetch(
-          `https://mechanic-on-wheels-backend.vercel.app/verifyJwt`,
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({
-              jwtToken: localStorage.getItem("jwtToken"),
-            }),
-          }
-        ).then((resp) => resp.json());
+        const result = await fetch(`${baseUrl}/verifyJwt`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            jwtToken: localStorage.getItem("jwtToken"),
+          }),
+        }).then((resp) => resp.json());
         console.log(result);
         if (result.type === "Success") {
           setVerified(true);

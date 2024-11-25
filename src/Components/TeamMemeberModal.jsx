@@ -38,7 +38,7 @@ const TeamMemberModal = ({ open, setOpen }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <TeamMemberFormPage />
+          <TeamMemberFormPage handleClose={handleClose} />
         </Box>
       </Modal>
     </div>

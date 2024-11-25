@@ -9,24 +9,22 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import LoadingBackdrop from "./FullLoder";
 import { useLoading } from "../Contexts/loadingContext";
+import { baseUrl } from "../services/http";
 const LoginPage = () => {
   const { themeMode } = useTheme();
   const { isLoading, startLoading, stopLoading } = useLoading();
   const navigate = useNavigate();
   useEffect(() => {
     const verifyAlreadyLoggedIn = async () => {
-      const result = await fetch(
-        `https://mechanic-on-wheels-backend.vercel.app/verifyJwt`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            jwtToken: localStorage.getItem("jwtToken"),
-          }),
-        }
-      ).then((resp) => resp.json());
+      const result = await fetch(`${baseUrl}/verifyJwt`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          jwtToken: localStorage.getItem("jwtToken"),
+        }),
+      }).then((resp) => resp.json());
       if (result.type === "Success") {
         toast.success("Already Logged In");
         navigate("/team");
@@ -36,26 +34,26 @@ const LoginPage = () => {
   });
   const handleFormSubmit = async (values) => {
     startLoading();
-    const result = await fetch(
-      `https://mechanic-on-wheels-backend.vercel.app/login`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          email: values.email,
-          password: values.password,
-        }),
-      }
-    ).then((resp) => resp.json());
+    const result = await fetch(`${baseUrl}/login`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: values.email,
+        password: values.password,
+      }),
+    }).then((resp) => resp.json());
 
     if (result.type === "Success") {
       toast.success("Successfully Logged In");
+      console.log(result);
       localStorage.setItem("jwtToken", result.token);
       localStorage.setItem("userName", result.name);
+      localStorage.setItem("accessLevel", result.accessLevel);
+
       stopLoading();
-      navigate("/team");
+      navigate(`${result.accessLevel === "admin" ? "/team" : "/inspection"}`);
     } else {
       stopLoading();
       toast.error(result.message);

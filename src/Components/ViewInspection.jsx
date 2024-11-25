@@ -14,6 +14,7 @@ import {
 import RichTextEditor from "./RichTextEditor";
 import { useLoading } from "../Contexts/loadingContext";
 import { useParams } from "react-router-dom";
+import { baseUrl } from "../services/http";
 
 const InspectionForm = () => {
   const { startLoading, stopLoading } = useLoading();
@@ -74,7 +75,7 @@ const InspectionForm = () => {
     const getData = async () => {
       startLoading();
       const result = await fetch(
-        `https://mechanic-on-wheels-backend.vercel.app/inspection/getInspectionById/${id}`,
+        `${baseUrl}/inspection/getInspectionById/${id}`,
         {
           method: "GET",
           headers: {
@@ -249,7 +250,7 @@ const InspectionForm = () => {
             <InputBox
               disabled={true}
               label={"SERVICE DATE"}
-              value={values.serviceDate}
+              value={new Date(Number(values.serviceDate)).toDateString()}
               name={"serviceDate"}
               themeMode={themeMode}
             />
@@ -266,8 +267,8 @@ const InspectionForm = () => {
           <Grid item xs={4}>
             <InputBox
               disabled={true}
-              label={"NEXT DUE AT (In KMs)"}
-              value={values.nextService}
+              label={"NEXT DUE AT"}
+              value={new Date(values.nextService).toDateString()}
               name={"nextService"}
               themeMode={themeMode}
             />
