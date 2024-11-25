@@ -119,7 +119,7 @@ const Sidebar = () => {
                 </li>
               ))}
             </ul>
-            <li
+            {/* <li
               onClick={handleThemeToggle}
               className={`flex rounded-md p-2 cursor-pointer dark:text-black text-white text-lg items-center gap-x-4 
                 dark:hover:bg-[#00d5ff] hover:bg-[#ffda71] hover:text-black`}
@@ -128,7 +128,7 @@ const Sidebar = () => {
               <span className={`${!open && "hidden"} origin-left duration-200`}>
                 {themeMode === "dark" ? "Dark Theme" : "Light Theme"}
               </span>
-            </li>
+            </li> */}
           </div>
         </div>
       )}
