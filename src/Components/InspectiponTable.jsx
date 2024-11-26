@@ -170,7 +170,9 @@ const InspectionTable = () => {
                     <td className=" py-2">{vehicle.contact}</td>
                     <td className={` py-2 `}>{vehicle.postInspectionReport}</td>
                     <td className={` py-2 `}>{vehicle.preInspectionReport}</td>
-                    <td className={` py-2 `}>{vehicle.serviceDate}</td>
+                    <td className={` py-2 `}>
+                      {new Date(vehicle.serviceDate).toDateString()}
+                    </td>
                     <td className=" py-2">
                       <Link to={`/viewInspection/${vehicle._id}`}>
                         <PreviewIcon />
